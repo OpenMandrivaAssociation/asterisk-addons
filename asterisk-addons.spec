@@ -1,4 +1,4 @@
-%define version 1.4.0
+%define version 1.4.1
 %define release %mkrel 1
 
 Summary:	Additional addons for Asterisk
@@ -8,7 +8,7 @@ Release:	%{release}
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
-Source:		ftp://ftp.asterisk.org/pub/asterisk/%{name}-%{version}.tar.bz2
+Source:		ftp://ftp.digium.com/pub/asterisk/%{name}-%{version}.tar.bz2
 Patch0:		asterisk-addons-1.4.0-mdk.diff
 Patch1:		asterisk-addons-1.2.0-20051030-ooh323c_avoid_version.diff
 Patch2:		asterisk-addons-1.2.1-bristuff-0.3.0-PRE-1l.diff
