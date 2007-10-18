@@ -1,4 +1,4 @@
-%define version 1.4.3
+%define version 1.4.4
 %define release %mkrel 1
 
 Summary:	Additional addons for Asterisk
