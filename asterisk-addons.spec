@@ -16,6 +16,7 @@ BuildRequires:	MySQL-devel
 BuildRequires:	asterisk-devel >= 1.2.0
 BuildRequires:	automake1.7
 Requires:	asterisk
+Buildroot:	%{_tmppath}/%{name}-%{version}
 
 %description
 Asterisk is a complete PBX in software. It runs on Linux and
