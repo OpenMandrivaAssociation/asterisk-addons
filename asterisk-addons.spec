@@ -10,8 +10,8 @@ Group:		System/Servers
 URL:		http://www.asterisk.org/
 Source:		http://downloads.digium.com/pub/asterisk/%{name}-%{version}.tar.bz2
 Patch0:		asterisk-addons-1.4.0-mdk.diff
-Patch1:		asterisk-addons-1.2.0-20051030-ooh323c_avoid_version.diff
-Patch2:		asterisk-addons-1.2.1-bristuff-0.3.0-PRE-1l.diff
+#Patch1:	asterisk-addons-1.2.0-20051030-ooh323c_avoid_version.diff
+#Patch2:	asterisk-addons-1.2.1-bristuff-0.3.0-PRE-1l.diff
 BuildRequires:	MySQL-devel
 BuildRequires:	asterisk-devel >= 1.2.0
 BuildRequires:	automake1.7
