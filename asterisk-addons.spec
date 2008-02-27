@@ -71,7 +71,7 @@ install -d %{buildroot}%{_libdir}/asterisk/modules
 # Install configuration files
 install -d %{buildroot}%{_sysconfdir}/asterisk
 install -m0644 configs/cdr_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/cdr_mysql.conf
-install -m0644 asterisk-ooh323c/h323.conf.sample %{buildroot}%{_sysconfdir}/asterisk/ooh323.conf
+#install -m0644 asterisk-ooh323c/h323.conf.sample %{buildroot}%{_sysconfdir}/asterisk/ooh323.conf
 install -m0644 configs/res_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/res_mysql.conf
 
 # fix docs
@@ -91,7 +91,7 @@ install -m0644 configs/res_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk
 #doc MPGLIB_README.format_mp3 MPGLIB_TODO.format_mp3 README.format_mp3
 #doc extensions.conf.ooh323c README.ooh323c
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/cdr_mysql.conf
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/ooh323.conf
+#attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/ooh323.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/res_mysql.conf
 %attr(0755,root,root) %{_libdir}/asterisk/modules/app_addon_sql_mysql.so
 %attr(0755,root,root) %{_libdir}/asterisk/modules/app_saycountpl.so
