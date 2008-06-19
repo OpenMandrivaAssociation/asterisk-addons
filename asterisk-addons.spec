@@ -1,11 +1,11 @@
 Summary:	Additional addons for Asterisk
 Name:		asterisk-addons
-Version:	1.4.6
-Release:	%mkrel 2
+Version:	1.4.7
+Release:	%mkrel 1
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
-Source:		http://downloads.digium.com/pub/asterisk/%{name}-%{version}.tar.bz2
+Source:		http://downloads.digium.com/pub/asterisk/%{name}-%{version}.tar.gz
 Patch0:		asterisk-addons-1.4.0-mdk.diff
 BuildRequires:	asterisk-devel >= 1.4.0
 BuildRequires:	automake1.7
