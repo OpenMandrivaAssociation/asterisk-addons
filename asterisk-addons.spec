@@ -8,6 +8,7 @@ URL:		http://www.asterisk.org/
 Source:		http://downloads.digium.com/pub/asterisk/%{name}-%{version}.tar.gz
 Patch0:		asterisk-addons-1.4.0-mdk.diff
 BuildRequires:	asterisk-devel >= 1.4.0
+BuildRequires:	libtool
 BuildRequires:	automake1.7
 BuildRequires:	mysql-devel
 BuildRequires:	ncurses-devel
@@ -42,8 +43,11 @@ find . -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 find . -type f | xargs perl -pi -e "s|/usr/lib|%{_libdir}|g"
 
 %build
+echo "%{version}" > build_tools/..version
+echo "%{version}" > ..version
+autoreconf -fis
 %configure
-%make
+make CFLAGS="%{optflags}" CXXFLAGS="%{optflags}"
 
 %install
 rm -rf %{buildroot}
