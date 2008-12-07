@@ -1,7 +1,7 @@
 Summary:	Additional addons for Asterisk
 Name:		asterisk-addons
 Version:	1.4.7
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
