@@ -1,18 +1,23 @@
+%define beta 2
+%define asterisk_version 1.6.1
+
 Summary:	Additional addons for Asterisk
 Name:		asterisk-addons
-Version:	1.4.7
-Release:	%mkrel 3
+Version:	1.6.1
+Release:	%mkrel %{?beta:rc%{beta}}.%{asterisk_version}.1
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
-Source:		http://downloads.digium.com/pub/asterisk/%{name}-%{version}.tar.gz
-Patch0:		asterisk-addons-1.4.0-mdk.diff
-BuildRequires:	asterisk-devel >= 1.4.0
+Source:		http://downloads.digium.com/pub/asterisk/%{name}-%{version}-%{?beta:rc%{beta}}.tar.gz
+Source1:	menuselect.makeopts
+Source2:	menuselect.makedeps
+#Patch0:		asterisk-addons-1.4.0-mdk.diff
+BuildRequires:	asterisk-devel = %{asterisk_version}
 BuildRequires:	libtool
-BuildRequires:	automake1.7
+BuildRequires:	automake, autoconf
 BuildRequires:	mysql-devel
 BuildRequires:	ncurses-devel
-Requires:	asterisk
+Requires:	asterisk = %{asterisk_version}
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -22,10 +27,21 @@ in three protocols, and can interoperate with almost all standards-based
 telephony equipment using relatively inexpensive hardware. This package
 contains additional addons for asterisk.
 
+%package        plugins-mobile
+Summary:        Asterisk channel driver for bluetooth phones and headsets
+Group:          System/Servers
+Requires:       asterisk = %{asterisk_version}
+
+%description    plugins-mobile
+Asterisk channel driver to allow Bluetooth cell/mobile phones to be
+used as FXO devices, and headsets as FXS devices.
+
 %prep
 
-%setup -q
-%patch0 -p1
+%setup -q -n %{name}-%{version}%{?beta:-rc%{beta}}
+#%patch0 -p1
+cp %{SOURCE1} menuselect.makedeps
+cp %{SOURCE2} menuselect.makeopts
 
 find . -type d -perm 0700 -exec chmod 755 {} \;
 find . -type f -perm 0555 -exec chmod 755 {} \;
@@ -45,7 +61,8 @@ find . -type f | xargs perl -pi -e "s|/usr/lib|%{_libdir}|g"
 %build
 echo "%{version}" > build_tools/..version
 echo "%{version}" > ..version
-autoreconf -fis
+./bootstrap.sh
+#autoreconf -fis
 %configure
 make CFLAGS="%{optflags}" CXXFLAGS="%{optflags}"
 
@@ -53,13 +70,19 @@ make CFLAGS="%{optflags}" CXXFLAGS="%{optflags}"
 rm -rf %{buildroot}
 
 install -d %{buildroot}%{_libdir}/asterisk/modules
-
-%makeinstall_std
+mkdir -p %{buildroot}%{_localstatedir}/lib/asterisk/documentation
+%makeinstall
+rm -f %{buildroot}%{_localstatedir}/lib/asterisk/documentation/*
+rmdir %{buildroot}%{_localstatedir}/lib/asterisk/documentation
+rmdir %{buildroot}%{_localstatedir}/lib/asterisk
+rmdir %{buildroot}%{_localstatedir}/lib
+rmdir %{buildroot}%{_localstatedir}
 
 # Install configuration files
 install -d %{buildroot}%{_sysconfdir}/asterisk
 install -m0644 configs/cdr_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/cdr_mysql.conf
 install -m0644 configs/res_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/res_mysql.conf
+install -m0644 configs/mobile.conf.sample %{buildroot}%{_sysconfdir}/asterisk/mobile.conf
 
 # fix docs
 cp formats/mp3/MPGLIB_README MPGLIB_README.format_mp3
@@ -71,7 +94,9 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc doc/cdr_mysql.txt configs/ooh323.conf.sample *README*
+%doc doc/ChangeLog.chan_ooh323 doc/addons-en_US.xml doc/cdr_mysql.txt doc/chan_ooh323.txt
+%doc configs/cdr_mysql.conf.sample configs/ooh323.conf.sample configs/res_mysql.conf.sample
+%doc *README* UPGRADE.txt  
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/cdr_mysql.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/res_mysql.conf
 %attr(0755,root,root) %{_libdir}/asterisk/modules/app_addon_sql_mysql.so
@@ -80,3 +105,10 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_libdir}/asterisk/modules/chan_ooh323.so
 %attr(0755,root,root) %{_libdir}/asterisk/modules/format_mp3.so
 %attr(0755,root,root) %{_libdir}/asterisk/modules/res_config_mysql.so
+
+%files plugins-mobile
+%defattr(-,root,root,-)
+%doc doc/chan_mobile.txt configs/mobile.conf.sample
+%attr(0640,asterisk,asterisk) %config(noreplace) %{_sysconfdir}/asterisk/mobile.conf
+%attr(0755,root,root) %{_libdir}/asterisk/modules/chan_mobile.so
+
