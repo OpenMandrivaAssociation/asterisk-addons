@@ -63,7 +63,12 @@ echo "%{version}" > build_tools/..version
 echo "%{version}" > ..version
 ./bootstrap.sh
 #autoreconf -fis
-%configure
+%configure \
+	--with-bluetooth \
+	--with-ncurses \
+	--with-mysqlclient \
+	--with-asterisk \
+
 make CFLAGS="%{optflags}" CXXFLAGS="%{optflags}"
 
 %install
