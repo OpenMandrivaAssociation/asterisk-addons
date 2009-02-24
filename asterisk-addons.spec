@@ -4,7 +4,7 @@
 Summary:	Additional addons for Asterisk
 Name:		asterisk-addons
 Version:	1.6.1
-Release:	%mkrel %{?beta:rc%{beta}}.%{asterisk_version}.1
+Release:	%mkrel %{?beta:rc%{beta}}.%{asterisk_version}.2
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
@@ -17,6 +17,7 @@ BuildRequires:	libtool
 BuildRequires:	automake, autoconf
 BuildRequires:	mysql-devel
 BuildRequires:	ncurses-devel
+BuildRequires:	libbluez-devel
 Requires:	asterisk = %{asterisk_version}
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -30,6 +31,7 @@ contains additional addons for asterisk.
 %package        plugins-mobile
 Summary:        Asterisk channel driver for bluetooth phones and headsets
 Group:          System/Servers
+Requires:	libbluez
 Requires:       asterisk = %{asterisk_version}
 
 %description    plugins-mobile
