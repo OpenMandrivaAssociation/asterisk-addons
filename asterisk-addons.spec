@@ -1,10 +1,10 @@
-%define beta 2
-%define asterisk_version 1.6.1
+%define beta 3
+%define asterisk_version 1.6.1.0
 
 Summary:	Additional addons for Asterisk
 Name:		asterisk-addons
-Version:	1.6.1
-Release:	%mkrel %{?beta:rc%{beta}}.%{asterisk_version}.2
+Version:	1.6.1.0
+Release:	%mkrel 0.%{?beta:rc%{beta}}.%{asterisk_version}.2
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
@@ -70,6 +70,7 @@ echo "%{version}" > ..version
 	--with-ncurses \
 	--with-mysqlclient \
 	--with-asterisk \
+echo CFLAGS="%{optflags}" CXXFLAGS="%{optflags}"
 
 make CFLAGS="%{optflags}" CXXFLAGS="%{optflags}"
 
