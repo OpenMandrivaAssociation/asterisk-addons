@@ -1,14 +1,13 @@
-%define beta 3
 %define asterisk_version 1.6.1.0
 
 Summary:	Additional addons for Asterisk
 Name:		asterisk-addons
 Version:	1.6.1.0
-Release:	%mkrel 0.%{?beta:rc%{beta}}.%{asterisk_version}.2
+Release:	%mkrel %{asterisk_version}.1
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
-Source:		http://downloads.digium.com/pub/asterisk/%{name}-%{version}-%{?beta:rc%{beta}}.tar.gz
+Source:		http://downloads.asterisk.org/pub/telephony/asterisk/%{name}-%{version}.tar.gz
 Source1:	menuselect.makeopts
 Source2:	menuselect.makedeps
 #Patch0:		asterisk-addons-1.4.0-mdk.diff
@@ -29,10 +28,10 @@ telephony equipment using relatively inexpensive hardware. This package
 contains additional addons for asterisk.
 
 %package        plugins-mobile
-Summary:        Asterisk channel driver for bluetooth phones and headsets
-Group:          System/Servers
+Summary:	Asterisk channel driver for bluetooth phones and headsets
+Group:		System/Servers
 Requires:	libbluez
-Requires:       asterisk = %{asterisk_version}
+Requires:	asterisk = %{asterisk_version}
 
 %description    plugins-mobile
 Asterisk channel driver to allow Bluetooth cell/mobile phones to be
@@ -50,7 +49,7 @@ find . -type f -perm 0555 -exec chmod 755 {} \;
 find . -type f -perm 0444 -exec chmod 644 {} \;
 		
 for i in `find . -type d -name CVS` `find . -type f -name .cvs\*` `find . -type f -name .#\*`; do
-    if [ -e "$i" ]; then rm -rf $i; fi >&/dev/null
+	if [ -e "$i" ]; then rm -rf $i; fi >&/dev/null
 done
 
 # strip away annoying ^M
