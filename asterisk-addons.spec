@@ -1,4 +1,4 @@
-%define asterisk_version 1.6.1.0
+%define asterisk_version 1.6.1.1
 
 Summary:	Additional addons for Asterisk
 Name:		asterisk-addons
