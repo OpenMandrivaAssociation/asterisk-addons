@@ -1,8 +1,8 @@
-%define asterisk_version 1.6.1.2
+%define asterisk_version 1.6.1.4
 
 Summary:	Additional addons for Asterisk
 Name:		asterisk-addons
-Version:	1.6.1.0
+Version:	1.6.1.1
 Release:	%mkrel %{asterisk_version}.1
 License:	GPL
 Group:		System/Servers
@@ -16,7 +16,7 @@ BuildRequires:	libtool
 BuildRequires:	automake, autoconf
 BuildRequires:	mysql-devel
 BuildRequires:	ncurses-devel
-Requires:	asterisk = %{asterisk_version}
+Requires:	asterisk <= %{asterisk_version}
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -76,9 +76,10 @@ make CFLAGS="%{optflags}" CXXFLAGS="%{optflags}"
 %install
 rm -rf %{buildroot}
 
+install -d %{buildroot}%{_sysconfdir}/asterisk
 install -d %{buildroot}%{_libdir}/asterisk/modules
 mkdir -p %{buildroot}%{_localstatedir}/lib/asterisk/documentation
-%makeinstall
+%makeinstall samples
 rm -f %{buildroot}%{_localstatedir}/lib/asterisk/documentation/*
 rmdir %{buildroot}%{_localstatedir}/lib/asterisk/documentation
 rmdir %{buildroot}%{_localstatedir}/lib/asterisk
@@ -86,10 +87,10 @@ rmdir %{buildroot}%{_localstatedir}/lib
 rmdir %{buildroot}%{_localstatedir}
 
 # Install configuration files
-install -d %{buildroot}%{_sysconfdir}/asterisk
-install -m0644 configs/cdr_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/cdr_mysql.conf
-install -m0644 configs/res_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/res_mysql.conf
-install -m0644 configs/mobile.conf.sample %{buildroot}%{_sysconfdir}/asterisk/mobile.conf
+#install -m0644 configs/cdr_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/cdr_mysql.conf
+#install -m0644 configs/res_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/res_mysql.conf
+#install -m0644 configs/ooh323.conf.sample %{buildroot}%{_sysconfdir}/asterisk/ooh323.conf
+#install -m0644 configs/mobile.conf.sample %{buildroot}%{_sysconfdir}/asterisk/mobile.conf
 
 # fix docs
 cp formats/mp3/MPGLIB_README MPGLIB_README.format_mp3
@@ -101,11 +102,13 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc doc/ChangeLog.chan_ooh323 doc/addons-en_US.xml doc/cdr_mysql.txt doc/chan_ooh323.txt
-%doc configs/cdr_mysql.conf.sample configs/ooh323.conf.sample configs/res_mysql.conf.sample
-%doc *README* UPGRADE.txt  
+%doc doc/ChangeLog.chan_ooh323 doc/cdr_mysql.txt doc/chan_ooh323.txt
+%doc configs/*mysql.conf.sample configs/ooh323.conf.sample configs/mysql.conf.sample
+%doc ChangeLog *README* UPGRADE.txt %{name}-%{version}-summary.txt
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/cdr_mysql.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/res_mysql.conf
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/mysql.conf
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/ooh323.conf
 %attr(0755,root,root) %{_libdir}/asterisk/modules/app_addon_sql_mysql.so
 %attr(0755,root,root) %{_libdir}/asterisk/modules/app_saycountpl.so
 %attr(0755,root,root) %{_libdir}/asterisk/modules/cdr_addon_mysql.so
