@@ -1,9 +1,12 @@
+%define	name	asterisk-addons
+%define	version	1.6.1.1
 %define asterisk_version 1.6.1.4
+%define	release %mkrel %{asterisk_version}.2
 
 Summary:	Additional addons for Asterisk
-Name:		asterisk-addons
-Version:	1.6.1.1
-Release:	%mkrel %{asterisk_version}.1
+Name:		%{name}
+Version:	%{version}
+Release:	%{relase}
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
@@ -26,14 +29,15 @@ in three protocols, and can interoperate with almost all standards-based
 telephony equipment using relatively inexpensive hardware. This package
 contains additional addons for asterisk.
 
-%package        plugins-mobile
+%package -n asterisk-plugins-mobile
 Summary:	Asterisk channel driver for bluetooth phones and headsets
 Group:		System/Servers
 BuildRequires:	libbluez-devel
 Requires:	libbluez3
 Requires:	asterisk = %{asterisk_version}
+Provides:	asterisk-addons-plugins-modules = %{version}-%{release}
 
-%description    plugins-mobile
+%description -n asterisk-plugins-mobile
 Asterisk channel driver to allow Bluetooth cell/mobile phones to be
 used as FXO devices, and headsets as FXS devices.
 
@@ -116,7 +120,7 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_libdir}/asterisk/modules/format_mp3.so
 %attr(0755,root,root) %{_libdir}/asterisk/modules/res_config_mysql.so
 
-%files plugins-mobile
+%files -n asterisk-plugins-mobile
 %defattr(-,root,root,-)
 %doc doc/chan_mobile.txt configs/mobile.conf.sample
 %attr(0640,asterisk,asterisk) %config(noreplace) %{_sysconfdir}/asterisk/mobile.conf
