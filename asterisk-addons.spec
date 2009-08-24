@@ -6,7 +6,7 @@
 Summary:	Additional addons for Asterisk
 Name:		%{name}
 Version:	%{version}
-Release:	%{relase}
+Release:	%{release}
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
