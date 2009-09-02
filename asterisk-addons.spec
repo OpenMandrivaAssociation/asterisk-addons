@@ -95,6 +95,7 @@ rmdir %{buildroot}%{_localstatedir}
 #install -m0644 configs/res_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/res_mysql.conf
 #install -m0644 configs/ooh323.conf.sample %{buildroot}%{_sysconfdir}/asterisk/ooh323.conf
 #install -m0644 configs/mobile.conf.sample %{buildroot}%{_sysconfdir}/asterisk/mobile.conf
+cp menuselect.makeopts asteriskaddons.makeopts
 
 # fix docs
 cp formats/mp3/MPGLIB_README MPGLIB_README.format_mp3
@@ -108,6 +109,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc doc/ChangeLog.chan_ooh323 doc/cdr_mysql.txt doc/chan_ooh323.txt
 %doc configs/*mysql.conf.sample configs/ooh323.conf.sample configs/mysql.conf.sample
+%doc asteriskaddons.makeopts
 %doc ChangeLog *README* UPGRADE.txt %{name}-%{version}-summary.txt
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/cdr_mysql.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/res_mysql.conf
