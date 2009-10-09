@@ -1,7 +1,6 @@
 %define	name	asterisk-addons
 %define	version	1.6.1.1
-%define asterisk_version 1.6.1.5
-%define	release %mkrel %{asterisk_version}.1
+%define	release %mkrel 2
 
 Summary:	Additional addons for Asterisk
 Name:		%{name}
@@ -13,13 +12,12 @@ URL:		http://www.asterisk.org/
 Source:		http://downloads.asterisk.org/pub/telephony/asterisk/%{name}-%{version}.tar.gz
 Source1:	menuselect.makeopts
 Source2:	menuselect.makedeps
-#Patch0:		asterisk-addons-1.4.0-mdk.diff
-BuildRequires:	asterisk-devel = %{asterisk_version}
+BuildRequires:	asterisk-devel >= 1.6.1.0
 BuildRequires:	libtool
 BuildRequires:	automake, autoconf
 BuildRequires:	mysql-devel
 BuildRequires:	ncurses-devel
-Requires:	asterisk <= %{asterisk_version}
+Requires:	asterisk >= 1.6.1.0
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -34,7 +32,7 @@ Summary:	Asterisk channel driver for bluetooth phones and headsets
 Group:		System/Servers
 BuildRequires:	libbluez-devel
 Requires:	libbluez3
-Requires:	asterisk = %{asterisk_version}
+Requires:	asterisk >= 1.6.1.0
 Provides:	asterisk-addons-plugins-modules = %{version}-%{release}
 
 %description -n asterisk-plugins-mobile
@@ -95,7 +93,6 @@ rmdir %{buildroot}%{_localstatedir}
 #install -m0644 configs/res_mysql.conf.sample %{buildroot}%{_sysconfdir}/asterisk/res_mysql.conf
 #install -m0644 configs/ooh323.conf.sample %{buildroot}%{_sysconfdir}/asterisk/ooh323.conf
 #install -m0644 configs/mobile.conf.sample %{buildroot}%{_sysconfdir}/asterisk/mobile.conf
-cp menuselect.makeopts asteriskaddons.makeopts
 
 # fix docs
 cp formats/mp3/MPGLIB_README MPGLIB_README.format_mp3
@@ -109,7 +106,6 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc doc/ChangeLog.chan_ooh323 doc/cdr_mysql.txt doc/chan_ooh323.txt
 %doc configs/*mysql.conf.sample configs/ooh323.conf.sample configs/mysql.conf.sample
-%doc asteriskaddons.makeopts
 %doc ChangeLog *README* UPGRADE.txt %{name}-%{version}-summary.txt
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/cdr_mysql.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/res_mysql.conf
