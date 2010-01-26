@@ -1,6 +1,8 @@
 %define	name	asterisk-addons
-%define	version	1.6.1.1
-%define	release %mkrel 2
+%define	major	1.6.2
+%define	version	%{major}.0
+%define	release %mkrel 1
+
 
 Summary:	Additional addons for Asterisk
 Name:		%{name}
@@ -9,15 +11,17 @@ Release:	%{release}
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
-Source:		http://downloads.asterisk.org/pub/telephony/asterisk/%{name}-%{version}.tar.gz
-Source1:	menuselect.makeopts
-Source2:	menuselect.makedeps
-BuildRequires:	asterisk-devel >= 1.6.1.0
+Source:		http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{major}.0.tar.gz
+#Patch1: 	http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{major}.1-patch.gz
+#Patch2:		http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{major}.2-patch.gz
+Source2:	menuselect.makeopts
+Source3:	menuselect.makedeps
+BuildRequires:	asterisk-devel >= %{major}.0
 BuildRequires:	libtool
 BuildRequires:	automake, autoconf
 BuildRequires:	mysql-devel
 BuildRequires:	ncurses-devel
-Requires:	asterisk >= 1.6.1.0
+Requires:	asterisk >= %{major}.0
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -32,7 +36,7 @@ Summary:	Asterisk channel driver for bluetooth phones and headsets
 Group:		System/Servers
 BuildRequires:	libbluez-devel
 Requires:	libbluez3
-Requires:	asterisk >= 1.6.1.0
+Requires:	asterisk >= %{major}.0
 Provides:	asterisk-addons-plugins-modules = %{version}-%{release}
 
 %description -n asterisk-plugins-mobile
@@ -41,10 +45,12 @@ used as FXO devices, and headsets as FXS devices.
 
 %prep
 
-%setup -q -n %{name}-%{version}%{?beta:-rc%{beta}}
-#%patch0 -p1
-cp %{SOURCE1} menuselect.makedeps
-cp %{SOURCE2} menuselect.makeopts
+#%setup -q -n %{name}-%{version}%{?beta:-rc%{beta}}
+%setup -q -n %{name}-%{major}.0 
+#%patch1 -p0
+#%patch2 -p0
+cp %{SOURCE2} menuselect.makedeps
+cp %{SOURCE3} menuselect.makeopts
 
 find . -type d -perm 0700 -exec chmod 755 {} \;
 find . -type f -perm 0555 -exec chmod 755 {} \;
@@ -106,7 +112,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc doc/ChangeLog.chan_ooh323 doc/cdr_mysql.txt doc/chan_ooh323.txt
 %doc configs/*mysql.conf.sample configs/ooh323.conf.sample configs/mysql.conf.sample
-%doc ChangeLog *README* UPGRADE.txt %{name}-%{version}-summary.txt
+%doc ChangeLog *README* UPGRADE.txt
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/cdr_mysql.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/res_mysql.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/asterisk/mysql.conf
