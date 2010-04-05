@@ -1,7 +1,7 @@
 %define	name	asterisk-addons
 %define	major	1.6.2
 %define	version	%{major}.0
-%define	release %mkrel 2
+%define	release %mkrel 3
 
 
 Summary:	Additional addons for Asterisk
@@ -35,7 +35,7 @@ contains additional addons for asterisk.
 Summary:	Asterisk channel driver for bluetooth phones and headsets
 Group:		System/Servers
 BuildRequires:	libbluez-devel
-Requires:	libbluez3
+Requires:	%{_lib}bluez3
 Requires:	asterisk >= %{major}.0
 Provides:	asterisk-addons-plugins-modules = %{version}-%{release}
 
