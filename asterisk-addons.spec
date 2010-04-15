@@ -1,8 +1,7 @@
 %define	name	asterisk-addons
 %define	major	1.6.2
-%define	version	%{major}.0
+%define	version	1.6.2.1
 %define	release %mkrel 3
-
 
 Summary:	Additional addons for Asterisk
 Name:		%{name}
@@ -11,7 +10,7 @@ Release:	%{release}
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
-Source:		http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{major}.0.tar.gz
+Source:		http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{version}.tar.gz
 #Patch1: 	http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{major}.1-patch.gz
 #Patch2:		http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{major}.2-patch.gz
 Source2:	menuselect.makeopts
@@ -46,7 +45,7 @@ used as FXO devices, and headsets as FXS devices.
 %prep
 
 #%setup -q -n %{name}-%{version}%{?beta:-rc%{beta}}
-%setup -q -n %{name}-%{major}.0 
+%setup -q -n %{name}-%{version} 
 #%patch1 -p0
 #%patch2 -p0
 cp %{SOURCE2} menuselect.makedeps
