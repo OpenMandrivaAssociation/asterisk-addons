@@ -1,7 +1,7 @@
 %define	name	asterisk-addons
 %define	major	1.6.2
 %define	version	1.6.2.1
-%define	release %mkrel 3
+%define	release %mkrel 4
 
 Summary:	Additional addons for Asterisk
 Name:		%{name}
