@@ -9,7 +9,7 @@ Version:	%{version}
 Release:	%{release}
 License:	GPL
 Group:		System/Servers
-URL:		http://www.asterisk.org/
+URL:		https://www.asterisk.org/
 Source:		http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{version}.tar.gz
 #Patch1: 	http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{major}.1-patch.gz
 #Patch2:		http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{major}.2-patch.gz
