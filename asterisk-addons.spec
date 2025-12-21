@@ -15,6 +15,8 @@ Source:		http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%
 #Patch2:		http://downloads.asterisk.org/pub/telephony/asterisk/releases/%{name}-%{major}.2-patch.gz
 Source2:	menuselect.makeopts
 Source3:	menuselect.makedeps
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	asterisk-devel >= %{major}.0
 BuildRequires:	libtool
 BuildRequires:	automake, autoconf
